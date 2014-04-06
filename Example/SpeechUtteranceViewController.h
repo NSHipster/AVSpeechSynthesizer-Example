@@ -22,7 +22,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SpeechUtteranceViewController : UIViewController
+@interface SpeechUtteranceViewController : UIViewController <UITextFieldDelegate>
+- (IBAction)speakText:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextField *inputField;
+@property (weak, nonatomic) IBOutlet UISlider *speedSlider;
 @property (weak, nonatomic) IBOutlet UILabel *utteranceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *transliterationLabel;
 @end
