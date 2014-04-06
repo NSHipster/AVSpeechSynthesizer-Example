@@ -97,35 +97,36 @@ static NSString * BCP47LanguageCodeForString(NSString *string) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    self.string = @"لَيْسَ حَيَّاً مَنْ لَا يَحْلُمْ"; // Arabic
+//    self.utteranceString = @"لَيْسَ حَيَّاً مَنْ لَا يَحْلُمْ"; // Arabic
     self.utteranceString = @"风向转变时、\n有人筑墙、\n有人造风车"; // Chinese
-//    self.string = @"Kolik jazyků znáš, tolikrát jsi člověkem."; //Czech
-//    self.string = @"Enhver er sin egen lykkes smed."; // Danish
-//    self.string = @"Wie zijn eigen tuintje wiedt, ziet het onkruid van een ander niet."; // Dutch
-//    self.string = @"Die beste Bildung findet ein gescheiter Mensch auf Reisen."; // German
-//    self.string = @"Ἐν οἴνῳ ἀλήθεια"; // Greek
-//    self.string = @"All the world's a stage, and all the men and women merely players."; //English
-//    self.string = @"On vähäkin tyhjää parempi."; // Finnish
-//    self.string = @"Le plus grand faible des hommes, c'est l'amour qu'ils ont de la vie."; // French
-//    self.string = @"जान है तो जहान है"; // Hindi
-//    self.string = @"Ki korán kel, aranyat lel|Aki korán kel, aranyat lel."; // Hungarian
-//    self.string = @"Jadilah kumbang, hidup sekali di taman bunga, jangan jadi lalat, hidup sekali di bukit sampah."; // Indonesian
-//    self.string = @"Finché c'è vita c'è speranza."; // Italian
-//    self.string = @"天に星、地に花、人に愛"; // Japanese
-//    self.string = @"손바닥으로 하늘을 가리려한다"; // Korean
-//    self.string = @"D'er mange ǿksarhogg, som eiki skal fella."; // Norwegian
-//    self.string = @"Co lekko przyszło, lekko pójdzie."; // Polish
-//    self.string = @"É de pequenino que se torce o pepino."; // Portuguese
-//    self.string = @"Cine se scoală de dimineață departe ajunge."; // Romanian
-//    self.string = @"Челове́к рожда́ется жить, а не гото́виться к жи́зни."; // Russian
-//    self.string = @"Každy je sám svôjho št'astia kováč."; // Slovak
-//    self.string = @"La vida no es la que uno vivió, sino la que uno recuerda, y cómo la recuerda para contarla."; // Spanish
-//    self.string = @"Verkligheten överträffar dikten."; // Swedish
-//    self.string = @"ความลับไม่มีในโลก"; // Thai
-//    self.string = @"Al elmaya taş atan çok olur."; // Turkish
+//    self.utteranceString = @"Kolik jazyků znáš, tolikrát jsi člověkem."; //Czech
+//    self.utteranceString = @"Enhver er sin egen lykkes smed."; // Danish
+//    self.utteranceString = @"Wie zijn eigen tuintje wiedt, ziet het onkruid van een ander niet."; // Dutch
+//    self.utteranceString = @"Die beste Bildung findet ein gescheiter Mensch auf Reisen."; // German
+//    self.utteranceString = @"Ἐν οἴνῳ ἀλήθεια"; // Greek
+//    self.utteranceString = @"All the world's a stage, and all the men and women merely players."; //English
+//    self.utteranceString = @"On vähäkin tyhjää parempi."; // Finnish
+//    self.utteranceString = @"Le plus grand faible des hommes, c'est l'amour qu'ils ont de la vie."; // French
+//    self.utteranceString = @"जान है तो जहान है"; // Hindi
+//    self.utteranceString = @"Ki korán kel, aranyat lel|Aki korán kel, aranyat lel."; // Hungarian
+//    self.utteranceString = @"Jadilah kumbang, hidup sekali di taman bunga, jangan jadi lalat, hidup sekali di bukit sampah."; // Indonesian
+//    self.utteranceString = @"Finché c'è vita c'è speranza."; // Italian
+//    self.utteranceString = @"天に星、地に花、人に愛"; // Japanese
+//    self.utteranceString = @"손바닥으로 하늘을 가리려한다"; // Korean
+//    self.utteranceString = @"D'er mange ǿksarhogg, som eiki skal fella."; // Norwegian
+//    self.utteranceString = @"Co lekko przyszło, lekko pójdzie."; // Polish
+//    self.utteranceString = @"É de pequenino que se torce o pepino."; // Portuguese
+//    self.utteranceString = @"Cine se scoală de dimineață departe ajunge."; // Romanian
+//    self.utteranceString = @"Челове́к рожда́ется жить, а не гото́виться к жи́зни."; // Russian
+//    self.utteranceString = @"Každy je sám svôjho št'astia kováč."; // Slovak
+//    self.utteranceString = @"La vida no es la que uno vivió, sino la que uno recuerda, y cómo la recuerda para contarla."; // Spanish
+//    self.utteranceString = @"Verkligheten överträffar dikten."; // Swedish
+//    self.utteranceString = @"ความลับไม่มีในโลก"; // Thai
+//    self.utteranceString = @"Al elmaya taş atan çok olur."; // Turkish
 
     self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
     self.speechSynthesizer.delegate = self;
+    self.inputField.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -175,6 +176,43 @@ willSpeakRangeOfSpeechString:(NSRange)characterRange
     NSLog(@"%@ %@", [self class], NSStringFromSelector(_cmd));
 
     self.utteranceLabel.attributedText = [[NSAttributedString alloc] initWithString:self.utteranceString];
+}
+
+- (IBAction)speakText:(id)sender {
+    
+    if (_inputField.text.length != 0) {
+        
+        [_inputField resignFirstResponder];
+        
+        self.utteranceString = _inputField.text;
+        self.utteranceLabel.attributedText = [[NSAttributedString alloc] initWithString:self.utteranceString];
+        
+        NSMutableString *mutableString = [self.utteranceString mutableCopy];
+        CFStringTransform((__bridge CFMutableStringRef)mutableString, NULL, kCFStringTransformToLatin, NO);
+        CFStringTransform((__bridge CFMutableStringRef)mutableString, NULL, kCFStringTransformStripCombiningMarks, NO);
+        self.transliterationLabel.text = mutableString;
+        
+        AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:self.utteranceString];
+        NSLog(@"BCP-47 Language Code: %@", BCP47LanguageCodeForString(utterance.speechString));
+        
+        utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:BCP47LanguageCodeForString(utterance.speechString)];
+        //    utterance.pitchMultiplier = 0.5f;
+        utterance.rate = _speedSlider.value;
+        utterance.preUtteranceDelay = 0.2f;
+        utterance.postUtteranceDelay = 0.2f;
+        
+        [self.speechSynthesizer speakUtterance:utterance];
+        
+    }
+    
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    [self speakText:textField];
+    
+    return YES;
+    
 }
 
 @end
