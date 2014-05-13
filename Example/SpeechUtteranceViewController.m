@@ -82,6 +82,64 @@ static NSString * BCP47LanguageCodeFromISO681LanguageCode(NSString *ISO681Langua
     }
 }
 
+typedef NS_ENUM(NSInteger, SpeechUtteranceLanguage) {
+    Arabic,
+    Chinese,
+    Czech,
+    Danish,
+    Dutch,
+    German,
+    Greek,
+    English,
+    Finnish,
+    French,
+    Hindi,
+    Hungarian,
+    Indonesian,
+    Italian,
+    Japanese,
+    Korean,
+    Norwegian,
+    Polish,
+    Portuguese,
+    Romanian,
+    Russian,
+    Slovak,
+    Spanish,
+    Swedish,
+    Thai,
+    Turkish,
+};
+
+NSString * const SpeechUtterancesByLanguage[] = {
+    [Arabic]        = @"لَيْسَ حَيَّاً مَنْ لَا يَحْلُمْ",
+    [Chinese]       = @"风向转变时、\n有人筑墙、\n有人造风车",
+    [Czech]         = @"Kolik jazyků znáš, tolikrát jsi člověkem.",
+    [Danish]        = @"Enhver er sin egen lykkes smed.",
+    [Dutch]         = @"Wie zijn eigen tuintje wiedt, ziet het onkruid van een ander niet.",
+    [German]        = @"Die beste Bildung findet ein gescheiter Mensch auf Reisen.",
+    [Greek]         = @"Ἐν οἴνῳ ἀλήθεια",
+    [English]       = @"All the world's a stage, and all the men and women merely players.",
+    [Finnish]       = @"On vähäkin tyhjää parempi.",
+    [French]        = @"Le plus grand faible des hommes, c'est l'amour qu'ils ont de la vie.",
+    [Hindi]         = @"जान है तो जहान है",
+    [Hungarian]     = @"Ki korán kel, aranyat lel|Aki korán kel, aranyat lel.",
+    [Indonesian]    = @"Jadilah kumbang, hidup sekali di taman bunga, jangan jadi lalat, hidup sekali di bukit sampah.",
+    [Italian]       = @"Finché c'è vita c'è speranza.",
+    [Japanese]      = @"天に星、地に花、人に愛",
+    [Korean]        = @"손바닥으로 하늘을 가리려한다",
+    [Norwegian]     = @"D'er mange ǿksarhogg, som eiki skal fella.",
+    [Polish]        = @"Co lekko przyszło, lekko pójdzie.",
+    [Portuguese]    = @"É de pequenino que se torce o pepino.",
+    [Romanian]      = @"Cine se scoală de dimineață departe ajunge.",
+    [Russian]       = @"Челове́к рожда́ется жить, а не гото́виться к жи́зни.",
+    [Slovak]        = @"Každy je sám svôjho št'astia kováč.",
+    [Spanish]       = @"La vida no es la que uno vivió, sino la que uno recuerda, y cómo la recuerda para contarla.",
+    [Swedish]       = @"Verkligheten överträffar dikten.",
+    [Thai]          = @"ความลับไม่มีในโลก",
+    [Turkish]       = @"Al elmaya taş atan çok olur."
+};
+
 static NSString * BCP47LanguageCodeForString(NSString *string) {
     NSString *ISO681LanguageCode = (__bridge NSString *)CFStringTokenizerCopyBestStringLanguage((__bridge CFStringRef)string, CFRangeMake(0, [string length]));
     return BCP47LanguageCodeFromISO681LanguageCode(ISO681LanguageCode);
@@ -97,32 +155,9 @@ static NSString * BCP47LanguageCodeForString(NSString *string) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    self.string = @"لَيْسَ حَيَّاً مَنْ لَا يَحْلُمْ"; // Arabic
-    self.utteranceString = @"风向转变时、\n有人筑墙、\n有人造风车"; // Chinese
-//    self.string = @"Kolik jazyků znáš, tolikrát jsi člověkem."; //Czech
-//    self.string = @"Enhver er sin egen lykkes smed."; // Danish
-//    self.string = @"Wie zijn eigen tuintje wiedt, ziet het onkruid van een ander niet."; // Dutch
-//    self.string = @"Die beste Bildung findet ein gescheiter Mensch auf Reisen."; // German
-//    self.string = @"Ἐν οἴνῳ ἀλήθεια"; // Greek
-//    self.string = @"All the world's a stage, and all the men and women merely players."; //English
-//    self.string = @"On vähäkin tyhjää parempi."; // Finnish
-//    self.string = @"Le plus grand faible des hommes, c'est l'amour qu'ils ont de la vie."; // French
-//    self.string = @"जान है तो जहान है"; // Hindi
-//    self.string = @"Ki korán kel, aranyat lel|Aki korán kel, aranyat lel."; // Hungarian
-//    self.string = @"Jadilah kumbang, hidup sekali di taman bunga, jangan jadi lalat, hidup sekali di bukit sampah."; // Indonesian
-//    self.string = @"Finché c'è vita c'è speranza."; // Italian
-//    self.string = @"天に星、地に花、人に愛"; // Japanese
-//    self.string = @"손바닥으로 하늘을 가리려한다"; // Korean
-//    self.string = @"D'er mange ǿksarhogg, som eiki skal fella."; // Norwegian
-//    self.string = @"Co lekko przyszło, lekko pójdzie."; // Polish
-//    self.string = @"É de pequenino que se torce o pepino."; // Portuguese
-//    self.string = @"Cine se scoală de dimineață departe ajunge."; // Romanian
-//    self.string = @"Челове́к рожда́ется жить, а не гото́виться к жи́зни."; // Russian
-//    self.string = @"Každy je sám svôjho št'astia kováč."; // Slovak
-//    self.string = @"La vida no es la que uno vivió, sino la que uno recuerda, y cómo la recuerda para contarla."; // Spanish
-//    self.string = @"Verkligheten överträffar dikten."; // Swedish
-//    self.string = @"ความลับไม่มีในโลก"; // Thai
-//    self.string = @"Al elmaya taş atan çok olur."; // Turkish
+    SpeechUtteranceLanguage randomLanguage = arc4random_uniform(25);
+//    self.utteranceString = SpeechUtterancesByLanguage[Chinese];
+    self.utteranceString = SpeechUtterancesByLanguage[randomLanguage];
 
     self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
     self.speechSynthesizer.delegate = self;
