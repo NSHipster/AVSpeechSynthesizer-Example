@@ -145,12 +145,16 @@ static NSString * BCP47LanguageCodeForString(NSString *string) {
     return BCP47LanguageCodeFromISO681LanguageCode(ISO681LanguageCode);
 }
 
+#pragma mark -
+
 @interface SpeechUtteranceViewController () <AVSpeechSynthesizerDelegate>
 @property (readwrite, nonatomic, copy) NSString *utteranceString;
 @property (readwrite, nonatomic, strong) AVSpeechSynthesizer *speechSynthesizer;
 @end
 
 @implementation SpeechUtteranceViewController
+
+#pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
