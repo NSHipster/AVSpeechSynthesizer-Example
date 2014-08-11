@@ -112,7 +112,7 @@ typedef NS_ENUM(NSInteger, SpeechUtteranceLanguage) {
 };
 
 NSString * const SpeechUtterancesByLanguage[] = {
-    [Arabic]        = @"لَيْسَ حَيَّاً مَنْ لَا يَحْلُمْ",
+    [Arabic]        = @"لَيْسَ حَيَّاً مَنْ لَا يَحْلُمْ",
     [Chinese]       = @"风向转变时、\n有人筑墙、\n有人造风车",
     [Czech]         = @"Kolik jazyků znáš, tolikrát jsi člověkem.",
     [Danish]        = @"Enhver er sin egen lykkes smed.",
@@ -131,7 +131,7 @@ NSString * const SpeechUtterancesByLanguage[] = {
     [Norwegian]     = @"D'er mange ǿksarhogg, som eiki skal fella.",
     [Polish]        = @"Co lekko przyszło, lekko pójdzie.",
     [Portuguese]    = @"É de pequenino que se torce o pepino.",
-    [Romanian]      = @"Cine se scoală de dimineață departe ajunge.",
+    [Romanian]      = @"Cine se scoală de dimineață, departe ajunge.",
     [Russian]       = @"Челове́к рожда́ется жить, а не гото́виться к жи́зни.",
     [Slovak]        = @"Každy je sám svôjho št'astia kováč.",
     [Spanish]       = @"La vida no es la que uno vivió, sino la que uno recuerda, y cómo la recuerda para contarla.",
