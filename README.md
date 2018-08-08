@@ -1,6 +1,6 @@
 # AVSpeechSynthesizer Example
 
-A companion project to the [NSHipster article about AVSpeechSynthesizer](https://nshipster.com/avspeechsynthesizer/)
+A companion project to the [NSHipster article about AVSpeechSynthesizer](https://nshipster.com/avspeechsynthesizer/).
 
 ## License
 
