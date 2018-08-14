@@ -27,7 +27,7 @@ let samplesByLanguage: [NLLanguage: String] = [
     .thai: "ความลับไม่มีในโลก",
     .turkish: "Al elmaya taş atan çok olur.",
     .simplifiedChinese: "小洞不补，大洞吃苦。",
-    .traditionalChinese: "风向转变时、\n有人筑墙、\n有人造风车。"
+    .traditionalChinese: "風向轉變時、\n有人築牆、\n有人造風車。"
 ]
 
 public struct LanguageSample: Equatable, Hashable {
